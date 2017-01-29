@@ -18,4 +18,4 @@ alias Blog.Post
     body: "This is the body",
     author: "Erik Hanchett"
   }
-] |> Enum.each(&Repo.insert!(&0))
+] |> Enum.each(&Repo.insert!(&1))
