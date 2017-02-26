@@ -11,6 +11,9 @@ defmodule Blog.PostController do
     render(conn, "index.json-api", data: posts)
   end
 
+  def create(conn, %{"data" => _data = %{"type" => "posts", "attributes" => post_params}}) do
+      create(conn,%{"data" => _data = %{"type" => "post", "attributes" => post_params}})
+  end
   def create(conn, %{"data" => data = %{"type" => "post", "attributes" => _post_params}}) do
     changeset = Post.changeset(%Post{}, Params.to_attributes(data))
 
@@ -32,7 +35,7 @@ defmodule Blog.PostController do
     render(conn, "show.json-api", data: post)
   end
 
-  def update(conn, %{"id" => id, "data" => data = %{"type" => "post", "attributes" => _post_params}}) do
+  def update(conn, %{"id" => id, "data" => data = %{"type" => "posts", "attributes" => _post_params}}) do
     post = Repo.get!(Post, id)
     changeset = Post.changeset(post, Params.to_attributes(data))
 
